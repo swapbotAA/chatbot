@@ -23,67 +23,102 @@ slots:
   tokenIn:
     type: text
     influence_conversation: true
+    # mappings:
+    # - type: from_entity
+    #   entity: tokenIn
+    # - intent:
+    #   - inform
+    #   type: from_text
+    #   conditions:
+    #   - active_loop: exactInput_form
+    #     requested_slot: tokenIn     
     mappings:
-    - type: from_entity
-      entity: tokenIn
-    - intent:
-      - inform
-      type: from_text
-      conditions:
-      - active_loop: exactInput_form
-        requested_slot: tokenIn     
+      - type: from_entity
+        entity: tokenIn
+      - type: from_text
+        conditions:
+        - active_loop: exactInput_form
+          requested_slot: tokenIn 
 
   tokenOut:
     type: text
     influence_conversation: true
+    # mappings:
+    # - type: from_entity
+    #   entity: tokenOut
+    # - intent:
+    #   - inform
+    #   type: from_text
+    #   conditions:
+    #   - active_loop: exactInput_form
+    #     requested_slot: tokenOut  
     mappings:
-    - type: from_entity
-      entity: tokenOut
-    - intent:
-      - inform
-      type: from_text
-      conditions:
-      - active_loop: exactInput_form
-        requested_slot: tokenOut  
-
+      - type: from_entity
+        entity: tokenOut
+      - type: from_text
+        conditions:
+        - active_loop: exactInput_form
+          requested_slot: tokenOut 
   amountIn:
     type: float
     influence_conversation: true
+    # mappings:
+    # - type: from_entity
+    #   entity: amountIn
+    # - intent:
+    #   - inform
+    #   type: from_text
+    #   conditions:
+    #   - active_loop: exactInput_form
+    #     requested_slot: amountIn
     mappings:
-    - type: from_entity
-      entity: amountIn
-    - intent:
-      - inform
-      type: from_text
-      conditions:
-      - active_loop: exactInput_form
-        requested_slot: amountIn
+      - type: from_entity
+        entity: amountIn
+      - type: from_text
+        conditions:
+        - active_loop: exactInput_form
+          requested_slot: amountIn
 
   tokenInContract:
     type: text
     influence_conversation: true
+    # mappings:
+    # - type: from_entity
+    #   entity: tokenInContract
+    # - intent:
+    #   - inform
+    #   type: from_text
+    #   conditions:
+    #   - active_loop: exactInput_form
+    #     requested_slot: tokenInContract 
     mappings:
-    - type: from_entity
-      entity: tokenInContract
-    - intent:
-      - inform
-      type: from_text
-      conditions:
-      - active_loop: exactInput_form
-        requested_slot: tokenInContract 
-        
+      - type: from_entity
+        entity: tokenInContract
+      - type: from_text
+        conditions:
+        - active_loop: exactInput_form
+          requested_slot: tokenInContract
+
   tokenOutContract:
     type: text
     influence_conversation: true
+    # mappings:
+    # - type: from_entity
+    #   entity: tokenOutContract
+    # - intent:
+    #   - inform
+    #   type: from_text
+    #   conditions:
+    #   - active_loop: exactInput_form
+    #     requested_slot: tokenOutContract 
     mappings:
-    - type: from_entity
-      entity: tokenOutContract
-    - intent:
-      - inform
-      type: from_text
-      conditions:
-      - active_loop: exactInput_form
-        requested_slot: tokenOutContract 
+      - type: from_entity
+        entity: tokenOutContract
+      - type: from_text
+        conditions:
+        - active_loop: exactInput_form
+          requested_slot: tokenOutContract
+
 forms:
   exactInput_form:
     required_slots:
