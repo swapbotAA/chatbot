@@ -81,33 +81,12 @@ nlu:
   examples: |
     - 2000
     - 14.5
-    - [122.5](amountIn)
-    - [500000.5](amountIn)
-    - [ETH](tokenIn)
-    - [eth](tokenIn)
-    - [ethers](tokenIn)
-    - [usdt](tokenIn)
-    - [usdc](tokenIn)
-    - [dai](tokenIn) 
-    - [ETH](tokenOut)
-    - [eth](tokenOut)
-    - [ethers](tokenOut)
-    - [usdt](tokenOut)
-    - [usdc](tokenOut)
-    - [dai](tokenOut)
-    - 0x0000000000000000000000000000000000000001
-    - [0x0000000000000000000000000000000000000000](tokenInContract)
-    - [0x0000000000000000000000000000000000000012](tokenInContract)
-    - [0x0000000000000000000000000000000000000034](tokenInContract)
-    - [0xffffffffffffffffffffffffffffffffffffffff](tokenInContract)
-    - [0x1000000000000000000000000000000000000000](tokenInContract)
-    - [0x1234567890123456789012345678901234567890](tokenInContract)
-    - [0x0000000000000000000000000000000000000000](tokenOutContract)
-    - [0x0000000000000000000000000000000000000012](tokenOutContract)
-    - [0x0000000000000000000000000000000000000034](tokenOutContract)
-    - [0xffffffffffffffffffffffffffffffffffffffff](tokenOutContract)
-    - [0x1000000000000000000000000000000000000000](tokenOutContract)
-    - [0x1234567890123456789012345678901234567890](tokenOutContract)
+    - eth
+    - usdc
+    - Tehter
+    - 0x0000000000000000000000000000000000000000
+    - 0x1234567890123456789012345678901234567890
+    - 0xffffffffffffffffffffffffffffffffffffffff
 
 - regex: tokenIn
   examples: |
