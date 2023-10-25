@@ -1,10 +1,28 @@
 digraph  {
 0 [class="start active", fillcolor=green, fontsize=12, label=START, style=filled];
 "-1" [class=end, fillcolor=red, fontsize=12, label=END, style=filled];
-1 [class=active, fontsize=12, label=action_session_start];
-2 [class="active dashed", fontsize=12, label=action_default_fallback];
+1 [class="", fontsize=12, label=utter_introduce];
+"-3" [class=ellipsis, label="..."];
+2 [class="", fontsize=12, label=utter_iamabot];
+"-4" [class=ellipsis, label="..."];
+3 [class="", fontsize=12, label=utter_greet];
+"-5" [class=ellipsis, label="..."];
+4 [class="active dashed", fontsize=12, label=exactInput_form];
+7 [class=intent, fillcolor=lightblue, label="/introduce", shape=rect, style=filled];
+8 [class=intent, fillcolor=lightblue, label="/bot_challenge", shape=rect, style=filled];
+9 [class=intent, fillcolor=lightblue, label="/greet", shape=rect, style=filled];
+10 [class="intent active", fillcolor=lightblue, label="/exactInput", shape=rect, style=filled];
 0 -> "-1"  [class="", key=NONE, label=""];
-0 -> 1  [class=active, key=NONE, label=""];
-1 -> 2  [class=active, key=NONE, label=""];
-2 -> 1  [class=active, key=NONE, label=""];
+0 -> 7  [class="", key=0];
+0 -> 8  [class="", key=0];
+0 -> 9  [class="", key=0];
+0 -> 10  [class=active, key=0];
+1 -> "-3"  [class="", key=NONE, label=""];
+2 -> "-4"  [class="", key=NONE, label=""];
+3 -> "-5"  [class="", key=NONE, label=""];
+4 -> "-1"  [class="", key=NONE, label=""];
+7 -> 1  [class="", key=0];
+8 -> 2  [class="", key=0];
+9 -> 3  [class="", key=0];
+10 -> 4  [class=active, key=0];
 }
