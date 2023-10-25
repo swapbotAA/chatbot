@@ -73,50 +73,41 @@ nlu:
     - get [2](amountIn) [ETH](tokenOut)
     - please buy [xxx](tokenOut)
 
-    - buy [0x1234567890123456789012345678901234567890](tokenOut) using [123.45](amountIn) [USDT](tokenIn)
-    - buy [0x1234567890123456789012345678901234567890](tokenOut) use [4000](amountIn) [0x1234567890123456789012345678901234567891](tokenIn)
     - purchase [DAI](tokenOut) with [500](amountIn) [ether](tokenIn)
     - purchase [Frx](tokenOut) with [22](amountIn) [eth](tokenIn)
 
-- intent: inform_amountIn
+ 
+- intent: inform
   examples: |
     - 2000
     - 14.5
     - [122.5](amountIn)
     - [500000.5](amountIn)
- 
- 
-- intent: inform_tokenIn
-  examples: |
-    - pay by usdt
-    - use erc
     - [ETH](tokenIn)
     - [eth](tokenIn)
     - [ethers](tokenIn)
     - [usdt](tokenIn)
     - [usdc](tokenIn)
-    - [dai](tokenIn)
-    - 0x0000000000000000000000000000000000000000
-    - 0x1111111111111111111111111111111111111111
-    - contract is [0x12341111111111111111111111111111111111111](tokenInContract)
-    - address [0x12241111111111111111111111111111111111111](tokenInContract)
-    - [0x1234567890123456789012345678901234567890](tokenInContract)
-    - [0x1234567890123456789012345678901234560000](tokenInContract)
-    - [0x1234567890123456789012345678901234561111](tokenInContract)
-    - [0x1234567890123456789012345678901234562222](tokenInContract)
-- intent: inform_tokenOut
-  examples: |
-    - buy eth
+    - [dai](tokenIn) 
     - [ETH](tokenOut)
     - [eth](tokenOut)
     - [ethers](tokenOut)
     - [usdt](tokenOut)
     - [usdc](tokenOut)
     - [dai](tokenOut)
-    - [0x4321567890123456789012345678901234561234](tokenOutContract)
-    - [0x5678567890123456789012345678901234564567](tokenOutContract)
-    - [0x6789567890123456789012345678901234563433](tokenOutContract)
-    - [0x789256789012345678901234567890123456abcd](tokenOutContract)
+    - 0x0000000000000000000000000000000000000001
+    - [0x0000000000000000000000000000000000000000](tokenInContract)
+    - [0x0000000000000000000000000000000000000012](tokenInContract)
+    - [0x0000000000000000000000000000000000000034](tokenInContract)
+    - [0xffffffffffffffffffffffffffffffffffffffff](tokenInContract)
+    - [0x1000000000000000000000000000000000000000](tokenInContract)
+    - [0x1234567890123456789012345678901234567890](tokenInContract)
+    - [0x0000000000000000000000000000000000000000](tokenOutContract)
+    - [0x0000000000000000000000000000000000000012](tokenOutContract)
+    - [0x0000000000000000000000000000000000000034](tokenOutContract)
+    - [0xffffffffffffffffffffffffffffffffffffffff](tokenOutContract)
+    - [0x1000000000000000000000000000000000000000](tokenOutContract)
+    - [0x1234567890123456789012345678901234567890](tokenOutContract)
 
 - regex: tokenIn
   examples: |
@@ -124,3 +115,9 @@ nlu:
 - regex: tokenOut
   examples: |
     - \w{2,42}
+- regex: tokenInContract
+  examples: |
+    - \w{40,42}
+- regex: tokenOutContract
+  examples: |
+    - \w{40,42}

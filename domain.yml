@@ -10,6 +10,7 @@ intents:
 - enter_tokenIn
 - stop
 - introduce
+- inform
 
 entities:
 - tokenIn
@@ -17,6 +18,7 @@ entities:
 - amountIn
 - tokenInContract
 - tokenOutContract
+
 slots:
   tokenIn:
     type: text
@@ -25,11 +27,12 @@ slots:
     - type: from_entity
       entity: tokenIn
     - intent:
-      - inform_tokenIn
+      - inform
       type: from_text
       conditions:
       - active_loop: exactInput_form
-        requested_slot: tokenIn 
+        requested_slot: tokenIn     
+
   tokenOut:
     type: text
     influence_conversation: true
@@ -37,11 +40,12 @@ slots:
     - type: from_entity
       entity: tokenOut
     - intent:
-      - inform_tokenOut
+      - inform
       type: from_text
       conditions:
       - active_loop: exactInput_form
-        requested_slot: tokenOut     
+        requested_slot: tokenOut  
+
   amountIn:
     type: float
     influence_conversation: true
@@ -49,11 +53,12 @@ slots:
     - type: from_entity
       entity: amountIn
     - intent:
-      - inform_amountIn
+      - inform
       type: from_text
       conditions:
       - active_loop: exactInput_form
         requested_slot: amountIn
+
   tokenInContract:
     type: text
     influence_conversation: true
@@ -61,11 +66,12 @@ slots:
     - type: from_entity
       entity: tokenInContract
     - intent:
-      - inform_tokenIn
+      - inform
       type: from_text
       conditions:
       - active_loop: exactInput_form
         requested_slot: tokenInContract 
+        
   tokenOutContract:
     type: text
     influence_conversation: true
@@ -73,7 +79,7 @@ slots:
     - type: from_entity
       entity: tokenOutContract
     - intent:
-      - inform_tokenOut
+      - inform
       type: from_text
       conditions:
       - active_loop: exactInput_form
@@ -128,6 +134,7 @@ actions:
 - action_ask_tokenInContract
 - action_ask_tokenOutContract
 - action_clear_allSlot
+- action_ask_amountIn
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

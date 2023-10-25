@@ -98,6 +98,7 @@ class ValidateExactInputForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:    
+        print(f"tokenInContract registed: {slot_value}")
 
         if len(slot_value) != 42:
             dispatcher.utter_message(text =f"invalid contract address: {slot_value}")
@@ -112,7 +113,7 @@ class ValidateExactInputForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:    
-
+        print(f"tokenOutContract registed: {slot_value}")
         if len(slot_value) != 42:
             dispatcher.utter_message(text =f"invalid contract address: {slot_value}")
             return {"tokenOutContract": None} 
@@ -143,6 +144,19 @@ class ActionSubmitExactInputForm(Action):
 
           
         return [SlotSet('tokenIn', None), SlotSet('tokenOut', None), SlotSet('amountIn', None), SlotSet('tokenInContract', None), SlotSet('tokenOutContract', None)]
+
+class checkTokenInContract(Action):
+    def name(self) -> Text:
+        return "action_ask_amountIn"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        tokenIn = tracker.get_slot("tokenIn")
+        if tokenIn != None:
+            dispatcher.utter_message(text =f"How many {tokenIn} you would like to pay")
+        return []
+
 
 class checkTokenInContract(Action):
     def name(self) -> Text:
