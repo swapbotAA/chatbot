@@ -1,0 +1,126 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: stop
+  examples: |
+    - stop
+    - reset
+    - clear
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - who are you
+
+- intent: introduce
+  examples: |
+    - what can you do
+    - what services do you provide
+    - what are your functions
+    - help me
+    - help
+    - instruction
+    - list services
+
+- intent: exactInput
+  examples: |
+    - swap [5](amountIn) [ETH](tokenIn) for [USDT](tokenOut)
+    - swap [0.001](amountIn) [eth](tokenIn) for [usdt](tokenOut)
+    - swap [2.1](amountIn) [ETH](tokenIn) for [USDT](tokenOut)
+    - swap [8](amountIn) [UNI](tokenIn) for [tether](tokenOut)
+    - swap [2000](amountIn) [usdt](tokenIn) for [eth](tokenOut)
+    - swap [500](amountIn) [tether](tokenIn) for [dai](tokenOut)
+    - swap [2.33](amountIn) [sdfd](tokenIn) for [dacccccci](tokenOut)
+    - swap [3](amountIn) [0x1234555](tokenId) to [asdfd](tokenOut)
+    - swap [3](amountIn) [zil](tokenId) to [asdfd](CSS)
+
+    - buy some [ethers](tokenOut) with [1000000](amountIn) [USDT](tokenIn)
+    - buy some [usd](tokenOut) with [222](amountIn) [Ctoken](tokenIn)
+    - buy some [ddd](tokenOut) with [323.5](amountIn) [ether](tokenIn)
+    - buy some [xxx](tokenOut) with [11000](amountIn) [ETH](tokenIn)
+    - buy [eth](tokenOut)
+    - get some [dai](tokenOut)
+    - get [2](amountIn) [ETH](tokenOut)
+    - please buy [xxx](tokenOut)
+
+    - buy [0x1234567890123456789012345678901234567890](tokenOut) using [123.45](amountIn) [USDT](tokenIn)
+    - buy [0x1234567890123456789012345678901234567890](tokenOut) use [4000](amountIn) [0x1234567890123456789012345678901234567891](tokenIn)
+    - purchase [DAI](tokenOut) with [500](amountIn) [ether](tokenIn)
+    - purchase [Frx](tokenOut) with [22](amountIn) [eth](tokenIn)
+
+- intent: inform_amountIn
+  examples: |
+    - 2000
+    - 14.5
+    - [122.5](amountIn)
+    - [500000.5](amountIn)
+ 
+ 
+- intent: inform_tokenIn
+  examples: |
+    - pay by usdt
+    - use erc
+    - [ETH](tokenIn)
+    - [eth](tokenIn)
+    - [ethers](tokenIn)
+    - [usdt](tokenIn)
+    - [usdc](tokenIn)
+    - [dai](tokenIn)
+    - 0x0000000000000000000000000000000000000000
+    - 0x1111111111111111111111111111111111111111
+    - contract is [0x12341111111111111111111111111111111111111](tokenInContract)
+    - address [0x12241111111111111111111111111111111111111](tokenInContract)
+    - [0x1234567890123456789012345678901234567890](tokenInContract)
+    - [0x1234567890123456789012345678901234560000](tokenInContract)
+    - [0x1234567890123456789012345678901234561111](tokenInContract)
+    - [0x1234567890123456789012345678901234562222](tokenInContract)
+- intent: inform_tokenOut
+  examples: |
+    - buy eth
+    - [ETH](tokenOut)
+    - [eth](tokenOut)
+    - [ethers](tokenOut)
+    - [usdt](tokenOut)
+    - [usdc](tokenOut)
+    - [dai](tokenOut)
+    - [0x4321567890123456789012345678901234561234](tokenOutContract)
+    - [0x5678567890123456789012345678901234564567](tokenOutContract)
+    - [0x6789567890123456789012345678901234563433](tokenOutContract)
+    - [0x789256789012345678901234567890123456abcd](tokenOutContract)
+
+- regex: tokenIn
+  examples: |
+    - \w{2,42}
+- regex: tokenOut
+  examples: |
+    - \w{2,42}

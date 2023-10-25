@@ -1,0 +1,53 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Introduce anytime the user queries
+  steps:
+  - intent: introduce
+  - action: utter_introduce
+
+- rule: Fallback functions
+  steps:
+  - intent: nlu_fallback
+  - action: utter_nlu_fallback
+
+- rule: Activate exactInput_form when no other form is active
+  condition:
+  # this condition allows stories to handle form switching
+  - active_loop: null
+  steps:
+  - intent: exactInput
+  - action: exactInput_form
+  - active_loop: exactInput_form
+
+- rule: Submit exactInput_form while all filled
+  condition:
+  - active_loop: exactInput_form
+  steps:
+  - action: exactInput_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_exactInputForm
+
+- rule: User interrupts the form and doesn't want to continue
+  steps:
+  # - intent: exactInput
+  # - action: exactInput_form
+  # - active_loop: exactInput_form
+  - intent: stop
+  - action: utter_stop
+  - action: action_clear_allSlot
+  - action: action_deactivate_loop
+  - active_loop: null

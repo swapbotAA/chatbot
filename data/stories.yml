@@ -1,0 +1,18 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- story: greeting
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- story: introduce and give help
+  steps:
+  - intent: introduce
+  - action: utter_introduce

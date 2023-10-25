@@ -1,0 +1,133 @@
+version: '3.1'
+intents:
+- bot_challenge
+- enter_token
+- exactInput
+- goodbye
+- greet
+- name&number
+- enter_tokenOut
+- enter_tokenIn
+- stop
+- introduce
+
+entities:
+- tokenIn
+- tokenOut
+- amountIn
+- tokenInContract
+- tokenOutContract
+slots:
+  tokenIn:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: tokenIn
+    - intent:
+      - inform_tokenIn
+      type: from_text
+      conditions:
+      - active_loop: exactInput_form
+        requested_slot: tokenIn 
+  tokenOut:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: tokenOut
+    - intent:
+      - inform_tokenOut
+      type: from_text
+      conditions:
+      - active_loop: exactInput_form
+        requested_slot: tokenOut     
+  amountIn:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: amountIn
+    - intent:
+      - inform_amountIn
+      type: from_text
+      conditions:
+      - active_loop: exactInput_form
+        requested_slot: amountIn
+  tokenInContract:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: tokenInContract
+    - intent:
+      - inform_tokenIn
+      type: from_text
+      conditions:
+      - active_loop: exactInput_form
+        requested_slot: tokenInContract 
+  tokenOutContract:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: tokenOutContract
+    - intent:
+      - inform_tokenOut
+      type: from_text
+      conditions:
+      - active_loop: exactInput_form
+        requested_slot: tokenOutContract 
+forms:
+  exactInput_form:
+    required_slots:
+    - tokenIn
+    - tokenOut
+    - amountIn
+    - tokenInContract
+    - tokenOutContract
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  utter_ask_exactInput:
+  - text: Tell me what to do
+  utter_submit_exactInputForm:
+  - text: |
+      Please check the order carefully and sign with your wallet
+      ---------------------------------------------------------- 
+      You Pay: {AmountIn} {TokenIn}(contract address: {TokenInContract})
+      You Receive: {TokenOut}(contract address: {TokenOutContract})
+  utter_goodbye:
+  - text: Bye
+  utter_stop:
+  - text: Sure, previousactions have been teminated. Tell me what you want 
+  utter_iamabot:
+  - text: My name is Sparky, I am a trustless dex-trading tool
+  utter_nlu_fallback:
+  - text: I am not sure what you are talking about, please rephrase
+  utter_ask_tokenOut:
+  - text: which token you intend to buy
+  utter_ask_tokenIn:
+  - text: which token you would like to choose as the payment token
+  utter_ask_amountIn:
+  - text: How many tokens you intend to pay
+  utter_introduce:
+  - text: |
+      I can help you do followings
+      ----------------------------
+      -> swap tokens on UniswapV3
+      -> make transfers [under development]
+      -> place limited order [under development]
+      -> fork and front-run [under development]
+
+
+
+actions:
+- action_submit_exactInputForm
+- validate_exactInput_form
+- action_ask_tokenInContract
+- action_ask_tokenOutContract
+- action_clear_allSlot
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
