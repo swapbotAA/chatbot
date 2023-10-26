@@ -204,8 +204,8 @@ responses:
   - text: |
       I can help you do followings
       ----------------------------
+      -> make transfers 
       -> swap tokens on UniswapV3
-      -> make transfers [under development]
       -> place limited order [under development]
       -> fork and front-run [under development]
 
