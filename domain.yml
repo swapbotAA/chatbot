@@ -167,10 +167,10 @@ responses:
 actions:
 - action_submit_exactInputForm
 - validate_exactInput_form
-- action_ask_tokenInContract
-- action_ask_tokenOutContract
+- action_ask_exactInput_form_tokenInContract
+- action_ask_exactInput_form_tokenOutContract
 - action_clear_allSlot
-- action_ask_amountIn
+- action_ask_exactInput_form_amountIn
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

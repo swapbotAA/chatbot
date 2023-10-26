@@ -147,7 +147,7 @@ class ActionSubmitExactInputForm(Action):
 
 class checkTokenInContract(Action):
     def name(self) -> Text:
-        return "action_ask_amountIn"
+        return "action_ask_exactInput_form_amountIn"
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
@@ -160,7 +160,7 @@ class checkTokenInContract(Action):
 
 class checkTokenInContract(Action):
     def name(self) -> Text:
-        return "action_ask_tokenInContract"
+        return "action_ask_exactInput_form_tokenInContract"
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
@@ -172,7 +172,7 @@ class checkTokenInContract(Action):
 
 class checkTokenOutContract(Action):
     def name(self) -> Text:
-        return "action_ask_tokenOutContract"
+        return "action_ask_exactInput_form_tokenOutContract"
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
