@@ -69,12 +69,40 @@ nlu:
     - buy some [ddd](tokenOut) with [323.5](amountIn) [ether](tokenIn)
     - buy some [xxx](tokenOut) with [11000](amountIn) [ETH](tokenIn)
     - buy [eth](tokenOut)
+    - buy some [uni](tokenOut)
+    - buy some
+    - buy
     - get some [dai](tokenOut)
     - get (tokenOut)
     - please buy [xxx](tokenOut)
 
     - purchase [DAI](tokenOut) with [500](amountIn) [ether](tokenIn)
     - purchase [Frx](tokenOut) with [22](amountIn) [eth](tokenIn)
+
+- intent: sendToken
+  examples: |
+    - transfer[2](amountIn) [ETH](tokenIn) to [0x0000000000000000000000000000000000000000](addressOut)
+    - transfer[2.55](amountIn) [frax](tokenIn) to [0x0000000000000000000000000000000000000123](addressOut)
+    - transfer[300000](amountIn) [usdt](tokenIn) to [0xffffffffffffffffffffffffffffffffffffffff](addressOut)
+    - transfer[0.0001](amountIn) [uni](tokenIn) to [0x1234567890123456789012345678901234567890](addressOut)
+    - send[2](amountIn) [ETH](tokenIn) to [0x0000000000000000000000000000000000000000](addressOut)
+    - send[2.55](amountIn) [frax](tokenIn) to [0x0000000000000000000000000000000000000123](addressOut)
+    - send[300000](amountIn) [usdt](tokenIn) to [0xffffffffffffffffffffffffffffffffffffffff](addressOut)
+    - send[0.0001](amountIn) [uni](tokenIn) to [0x1234567890123456789012345678901234567890](addressOut)    
+    - transfer some [uni](tokenIn) to [0x1234567890123456789012345678901234567890](addressOut) 
+    - transfer to [0x1234567890123456789012345678901234567890](addressOut) 
+    - transfer [fze](tokenIn)
+    - send
+    - send eth
+    - send some tokens
+    - transfer
+    - transfer usdt
+    - transfer tokens
+    - make transfer
+    
+
+
+
 
  
 - intent: inform

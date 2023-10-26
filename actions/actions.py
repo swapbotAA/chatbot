@@ -143,7 +143,8 @@ class ActionSubmitExactInputForm(Action):
         dispatcher.utter_message(text =response_text)
 
           
-        return [SlotSet('tokenIn', None), SlotSet('tokenOut', None), SlotSet('amountIn', None), SlotSet('tokenInContract', None), SlotSet('tokenOutContract', None)]
+        # return [SlotSet('tokenIn', None), SlotSet('tokenOut', None), SlotSet('amountIn', None), SlotSet('tokenInContract', None), SlotSet('tokenOutContract', None)]
+        return [AllSlotsReset(None)]
 
 class checkTokenInContract(Action):
     def name(self) -> Text:
@@ -181,6 +182,8 @@ class checkTokenOutContract(Action):
     
         return []
 
+
+
 class ActionClearSlot(Action):
     def name(self) -> Text:
         return "action_clear_allSlot"
@@ -201,3 +204,123 @@ def is_number(string):
         except ValueError:
             return False  # It's neither an integer nor a float
    
+
+# sendTokens
+
+class ValidateSendTokenForm(FormValidationAction):
+
+    def name(self) -> Text:
+        return "validate_sendToken_form"
+    
+    # query flow: tokenIn, amountIn, tokenOut
+    def validate_tokenIn(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        
+        slot_value = slot_value.upper()
+        print(f"tokenIn registered: {slot_value}")
+
+        # forbid same tokenIn and tokenOut
+        # tokenOut = tracker.get_slot("tokenOut")
+        # if tokenOut != None:
+        #     tokenOut = tokenOut.upper()
+        #     if tokenIn != None:
+        #         tokenIn = tokenIn.upper()
+        #         if tokenIn == tokenOut:
+        #             return {"tokenIn": None}
+    
+        tokenInContract = config.get(slot_value)
+        print(f"tokenInContract: {tokenInContract}")
+        if tokenInContract!=None:
+            # return [SlotSet("tokenInContract",tokenInContract), SlotSet("tokenIn": slot_value)]
+            # return [SlotSet("tokenInContract",tokenInContract), SlotSet('tokenIn', slot_value)]
+            return {"tokenIn": slot_value, "tokenInContract":tokenInContract}
+        
+        return {"tokenIn": slot_value} 
+
+       
+    
+    def validate_amountIn(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        print(f"amountIn registered: {slot_value}")
+        
+        if is_number(slot_value) == False:
+            dispatcher.utter_message(text =f"invalid number: {slot_value}")
+            return {"amountIn": None}       
+        return {"amountIn": slot_value}       
+        
+    
+    def validate_tokenInContract(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:    
+        print(f"tokenInContract registed: {slot_value}")
+
+        if len(slot_value) != 42:
+            dispatcher.utter_message(text =f"invalid contract address: {slot_value}")
+            return {"tokenInContract": None} 
+        
+        return {"tokenInContract": slot_value} 
+
+    def validate_addressOut(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:    
+        print(f"recipient registed: {slot_value}")
+
+        if len(slot_value) != 42:
+            dispatcher.utter_message(text =f"invalid recipient address: {slot_value}")
+            return {"addressOut": None} 
+        
+        return {"addressOut": slot_value}   
+class ActionSubmitSendTokenForm(Action):
+
+    def name(self) -> Text:
+        return "action_submit_sendToken_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        print(f"form submited")
+        response = domain["responses"]["utter_submit_sendToken_form"][0]
+
+        tokenIn = tracker.get_slot("tokenIn")
+        addressOut = tracker.get_slot("addressOut")
+        amountIn = tracker.get_slot("amountIn")
+        tokenInContract = tracker.get_slot("tokenInContract")
+
+        response_text = response["text"].format(TokenIn=tokenIn, AmountIn=amountIn, TokenInContract=tokenInContract, AddressOut=addressOut)
+
+        dispatcher.utter_message(text =response_text)
+
+          
+        # return [SlotSet('tokenIn', None), SlotSet('addressOut', None), SlotSet('amountIn', None)]
+        return [AllSlotsReset(None)]
+
+class checkSendTokenTokenOutContract(Action):
+    def name(self) -> Text:
+        return "action_ask_sendToken_form_tokenInContract"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        tokenIn = tracker.get_slot("tokenIn")
+        dispatcher.utter_message(text =f"{tokenIn} contract not found, please input its contract adress:")
+    
+        return []
+

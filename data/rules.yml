@@ -41,6 +41,25 @@ rules:
     - requested_slot: null
   - action: action_submit_exactInputForm
 
+- rule: Activate sendToken_form when no other form is active
+  condition:
+  # this condition allows stories to handle form switching
+  - active_loop: null
+  steps:
+  - intent: sendToken
+  - action: sendToken_form
+  - active_loop: sendToken_form
+
+- rule: Submit sendToken_form while all filled
+  condition:
+  - active_loop: sendToken_form
+  steps:
+  - action: sendToken_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_sendToken_form
+
 - rule: User interrupts the form and doesn't want to continue
   steps:
   # - intent: exactInput

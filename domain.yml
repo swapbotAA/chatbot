@@ -11,6 +11,7 @@ intents:
 - stop
 - introduce
 - inform
+- sendToken
 
 entities:
 - tokenIn
@@ -18,6 +19,7 @@ entities:
 - amountIn
 - tokenInContract
 - tokenOutContract
+- addressOut
 
 slots:
   tokenIn:
@@ -39,7 +41,8 @@ slots:
         conditions:
         - active_loop: exactInput_form
           requested_slot: tokenIn 
-
+        - active_loop: sendToken_form
+          requested_slot: tokenIn
   tokenOut:
     type: text
     influence_conversation: true
@@ -78,7 +81,8 @@ slots:
         conditions:
         - active_loop: exactInput_form
           requested_slot: amountIn
-
+        - active_loop: sendToken_form
+          requested_slot: amountIn
   tokenInContract:
     type: text
     influence_conversation: true
@@ -98,7 +102,8 @@ slots:
         conditions:
         - active_loop: exactInput_form
           requested_slot: tokenInContract
-
+        - active_loop: sendToken_form
+          requested_slot: tokenInContract
   tokenOutContract:
     type: text
     influence_conversation: true
@@ -118,6 +123,25 @@ slots:
         conditions:
         - active_loop: exactInput_form
           requested_slot: tokenOutContract
+  addressOut:
+    type: text
+    influence_conversation: true
+    # mappings:
+    # - type: from_entity
+    #   entity: tokenOutContract
+    # - intent:
+    #   - inform
+    #   type: from_text
+    #   conditions:
+    #   - active_loop: exactInput_form
+    #     requested_slot: tokenOutContract 
+    mappings:
+      - type: from_entity
+        entity: addressOut
+      - type: from_text
+        conditions:
+        - active_loop: sendToken_form
+          requested_slot: addressOut
 
 forms:
   exactInput_form:
@@ -127,6 +151,13 @@ forms:
     - amountIn
     - tokenInContract
     - tokenOutContract
+  sendToken_form:
+    required_slots:
+    - tokenIn
+    - amountIn
+    - addressOut
+    - tokenInContract
+
 responses:
   utter_greet:
   - text: Hey! Sparky is here, what can I do for you?
@@ -147,12 +178,28 @@ responses:
   - text: My name is Sparky, I am a trustless dex-trading tool
   utter_nlu_fallback:
   - text: I am not sure what you are talking about, please rephrase
-  utter_ask_tokenOut:
+  utter_ask_exactInput_form_tokenOut:
   - text: which token you intend to buy
-  utter_ask_tokenIn:
+  utter_ask_exactInput_form_tokenIn:
   - text: which token you would like to choose as the payment token
-  utter_ask_amountIn:
+  utter_ask_exactInput_form_amountIn:
   - text: How many tokens you intend to pay
+
+  utter_ask_sendToken_form_tokenIn:
+  - text: which token you intend to send
+  utter_ask_sendToken_form_amountIn:
+  - text: How many tokens you intend to send
+  utter_ask_sendToken_form_addressOut:
+  - text: which address is the recepient?
+
+  utter_submit_sendToken_form:
+  - text: |
+      Please check oprderation carefully and sign with your wallet
+      ---------------------------------------------------------- 
+      TYPE of OPERATION: Transfer Token
+      You Send: {AmountIn} {TokenIn}(contract address: {TokenInContract})
+      Recepient: {AddressOut}
+
   utter_introduce:
   - text: |
       I can help you do followings
@@ -171,6 +218,10 @@ actions:
 - action_ask_exactInput_form_tokenOutContract
 - action_clear_allSlot
 - action_ask_exactInput_form_amountIn
+- validate_sendToken_form
+- action_submit_sendToken_form
+
+- action_ask_sendToken_form_tokenInContract
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
