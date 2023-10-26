@@ -129,13 +129,14 @@ forms:
     - tokenOutContract
 responses:
   utter_greet:
-  - text: Hey! How are you?
+  - text: Hey! Sparky is here, what can I do for you?
   utter_ask_exactInput:
   - text: Tell me what to do
   utter_submit_exactInputForm:
   - text: |
-      Please check the order carefully and sign with your wallet
+      Please check oprderation carefully and sign with your wallet
       ---------------------------------------------------------- 
+      TYPE of OPERATION: Standard Swap
       You Pay: {AmountIn} {TokenIn}(contract address: {TokenInContract})
       You Receive: {TokenOut}(contract address: {TokenOutContract})
   utter_goodbye:

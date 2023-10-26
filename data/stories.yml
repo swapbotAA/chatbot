@@ -12,7 +12,3 @@ stories:
   - intent: greet
   - action: utter_greet
 
-- story: introduce and give help
-  steps:
-  - intent: introduce
-  - action: utter_introduce
