@@ -17,6 +17,7 @@ entities:
 - tokenIn
 - tokenOut
 - amountIn
+- minimalAmountOut
 - tokenInContract
 - tokenOutContract
 - addressOut
@@ -83,6 +84,26 @@ slots:
           requested_slot: amountIn
         - active_loop: sendToken_form
           requested_slot: amountIn
+  minimalAmountOut:
+    type: float
+    influence_conversation: true
+    # mappings:
+    # - type: from_entity
+    #   entity: amountIn
+    # - intent:
+    #   - inform
+    #   type: from_text
+    #   conditions:
+    #   - active_loop: exactInput_form
+    #     requested_slot: amountIn
+    mappings:
+      - type: from_entity
+        entity: minimalAmountOut
+      - type: from_text
+        conditions:
+        - active_loop: exactInput_form
+          requested_slot: minimalAmountOut
+
   tokenInContract:
     type: text
     influence_conversation: true
@@ -149,6 +170,7 @@ forms:
     - tokenIn
     - tokenOut
     - amountIn
+    - minimalAmountOut
     - tokenInContract
     - tokenOutContract
   sendToken_form:
@@ -168,7 +190,8 @@ responses:
       Operation submitted: [SWAP]
       ---------------------------------------------------------- 
       You Pay: {AmountIn} {TokenIn}(contract address: {TokenInContract})
-      You Receive: {TokenOut}(contract address: {TokenOutContract})
+      You Ask: at least {MinimalAmountOut} {TokenOut}(contract address: {TokenOutContract})
+      (Asking for a higher price than market rate will turn this into a limit order)
   utter_goodbye:
   - text: Bye
   utter_stop:
@@ -204,8 +227,8 @@ responses:
       ----------------------------
       -> make transfers 
       -> swap tokens immediately
-      -> place limited order [under development]
-      -> fork and front-run [under development]
+      -> place limit orders
+      -> mirror trades [under development]
 
 
 
@@ -216,9 +239,9 @@ actions:
 - action_ask_exactInput_form_tokenOutContract
 - action_clear_allSlot
 - action_ask_exactInput_form_amountIn
+- action_ask_exactInput_form_minimalAmountOut
 - validate_sendToken_form
 - action_submit_sendToken_form
-
 - action_ask_sendToken_form_tokenInContract
 session_config:
   session_expiration_time: 60

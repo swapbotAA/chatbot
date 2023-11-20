@@ -24,7 +24,9 @@ class ValidateExactInputForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
-        
+        if slot_value.isalnum() == False:
+            dispatcher.utter_message(text =f"invalid input token: {slot_value}")
+            return {"tokenIn": None}    
         slot_value = slot_value.upper()
         print(f"tokenIn registered: {slot_value}")
 
@@ -61,7 +63,20 @@ class ValidateExactInputForm(FormValidationAction):
             dispatcher.utter_message(text =f"invalid number: {slot_value}")
             return {"amountIn": None}       
         return {"amountIn": slot_value}       
+
+    def validate_minimalAmountOut(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        print(f"minimalAmountOut registered: {slot_value}")
         
+        if is_number(slot_value) == False:
+            dispatcher.utter_message(text =f"invalid number: {slot_value}")
+            return {"minimalAmountOut": None}       
+        return {"minimalAmountOut": slot_value}            
     
     def validate_tokenOut(
         self,
@@ -70,6 +85,9 @@ class ValidateExactInputForm(FormValidationAction):
         tracker: Tracker,
         domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.isalnum() == False:
+            dispatcher.utter_message(text =f"invalid input token: {slot_value}")
+            return {"tokenOut": None}  
         slot_value = slot_value.upper()
         print(f"tokenOut registered: {slot_value}")
 
@@ -135,10 +153,12 @@ class ActionSubmitExactInputForm(Action):
         tokenIn = tracker.get_slot("tokenIn")
         tokenOut = tracker.get_slot("tokenOut")
         amountIn = tracker.get_slot("amountIn")
+        minimalAmountOut = tracker.get_slot("minimalAmountOut")
+
         tokenInContract = tracker.get_slot("tokenInContract")
         tokenOutContract = tracker.get_slot("tokenOutContract")
 
-        response_text = response["text"].format(TokenIn=tokenIn, TokenOut=tokenOut, AmountIn=amountIn, TokenInContract=tokenInContract, TokenOutContract=tokenOutContract)
+        response_text = response["text"].format(TokenIn=tokenIn, TokenOut=tokenOut, AmountIn=amountIn,MinimalAmountOut=minimalAmountOut, TokenInContract=tokenInContract, TokenOutContract=tokenOutContract)
 
         dispatcher.utter_message(text =response_text)
 
@@ -146,7 +166,7 @@ class ActionSubmitExactInputForm(Action):
         # return [SlotSet('tokenIn', None), SlotSet('tokenOut', None), SlotSet('amountIn', None), SlotSet('tokenInContract', None), SlotSet('tokenOutContract', None)]
         return [AllSlotsReset(None)]
 
-class checkTokenInContract(Action):
+class checkAmountInContract(Action):
     def name(self) -> Text:
         return "action_ask_exactInput_form_amountIn"
     def run(self, dispatcher: CollectingDispatcher,
@@ -156,6 +176,18 @@ class checkTokenInContract(Action):
         tokenIn = tracker.get_slot("tokenIn")
         if tokenIn != None:
             dispatcher.utter_message(text =f"How many {tokenIn} you would like to pay")
+        return []
+
+class checkMinimalAmountOutContract(Action):
+    def name(self) -> Text:
+        return "action_ask_exactInput_form_minimalAmountOut"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        tokenOut = tracker.get_slot("tokenOut")
+        if tokenOut != None:
+            dispatcher.utter_message(text =f"What is the minimal amount of {tokenOut} you would like to ask?\n --You can always enter \'0\' to make swap immediately, the amount you receive will depend on market rate\n --or you can ask for a higher market rate, Sparky will treat the operation as a limit order and make swap for you whenever possible")
         return []
 
 

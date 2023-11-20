@@ -54,6 +54,14 @@ nlu:
 
 - intent: exactInput
   examples: |
+    - swap [8](amountIn) [UNI](tokenIn) for [100](minimalAmountOut) [tether](tokenOut)
+    - swap [8](amountIn) [UNI](tokenIn) for [0.111](minimalAmountOut) [usdt](tokenOut)
+    - swap [5](amountIn) [ETH](tokenIn) for [0.02](minimalAmountOut) [usdc](tokenOut)
+    - swap [1000000](amountIn) [dai](tokenIn) for [0.02](minimalAmountOut) [usdt](tokenOut)
+    - swap [1](amountIn) [uni](tokenIn) for [200](minimalAmountOut) [eth](tokenOut)
+    - swap [0.5](amountIn) [dai](tokenIn) for [1](minimalAmountOut) [eth](tokenOut)
+    - swap [10000](amountIn) [usdc](tokenIn) for [1](minimalAmountOut) [eth](tokenOut)
+
     - swap [5](amountIn) [ETH](tokenIn) for [USDT](tokenOut)
     - swap [0.001](amountIn) [eth](tokenIn) for [usdt](tokenOut)
     - swap [2.1](amountIn) [ETH](tokenIn) for [USDT](tokenOut)
@@ -64,6 +72,13 @@ nlu:
     - swap [3](amountIn) [0x1234555](tokenId) to [asdfd](tokenOut)
     - swap [3](amountIn) [zil](tokenId) to [asdfd](CSS)
 
+    - buy [1][minimalAmountOut] [ETH](tokenOut) with [222](amountIn) [Ctoken](tokenIn)
+    - buy [2][minimalAmountOut] [ETH](tokenOut) 
+    - buy [0.005][minimalAmountOut] [usdt](tokenOut) 
+    - buy [4000][minimalAmountOut] [uni](tokenOut) 
+    - buy [2][minimalAmountOut] [eth](tokenOut) 
+    - buy [3][minimalAmountOut] [uethni](tokenOut) 
+    - buy [5][minimalAmountOut] [dai](tokenOut) 
     - buy some [ethers](tokenOut) with [1000000](amountIn) [USDT](tokenIn)
     - buy some [usd](tokenOut) with [222](amountIn) [Ctoken](tokenIn)
     - buy some [ddd](tokenOut) with [323.5](amountIn) [ether](tokenIn)
@@ -71,13 +86,18 @@ nlu:
     - buy [eth](tokenOut)
     - buy some [uni](tokenOut)
     - buy some
+
+
     - buy
-    - get some [dai](tokenOut)
+    - get [dai](tokenOut)
     - get (tokenOut)
     - please buy [xxx](tokenOut)
 
     - purchase [DAI](tokenOut) with [500](amountIn) [ether](tokenIn)
     - purchase [Frx](tokenOut) with [22](amountIn) [eth](tokenIn)
+    - purchase [4000][minimalAmountOut] [Frx](tokenOut) with [22](amountIn) [eth](tokenIn)
+    - purchase [0.2][minimalAmountOut] [usdt](tokenOut) with [22](amountIn) [eth](tokenIn)
+
 
 - intent: sendToken
   examples: |
