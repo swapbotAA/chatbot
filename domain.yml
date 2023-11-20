@@ -165,9 +165,8 @@ responses:
   - text: Tell me what to do
   utter_submit_exactInputForm:
   - text: |
-      Please check oprderation carefully and sign with your wallet
+      Operation submitted: [SWAP]
       ---------------------------------------------------------- 
-      TYPE of OPERATION: Standard Swap
       You Pay: {AmountIn} {TokenIn}(contract address: {TokenInContract})
       You Receive: {TokenOut}(contract address: {TokenOutContract})
   utter_goodbye:
@@ -194,9 +193,8 @@ responses:
 
   utter_submit_sendToken_form:
   - text: |
-      Please check oprderation carefully and sign with your wallet
+      Operation submitted: [TRANSFER]
       ---------------------------------------------------------- 
-      TYPE of OPERATION: Transfer Token
       You Send: {AmountIn} {TokenIn}(contract address: {TokenInContract})
       Recepient: {AddressOut}
 
@@ -205,7 +203,7 @@ responses:
       I can help you do followings
       ----------------------------
       -> make transfers 
-      -> swap tokens on UniswapV3
+      -> swap tokens immediately
       -> place limited order [under development]
       -> fork and front-run [under development]
 
