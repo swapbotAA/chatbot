@@ -83,6 +83,7 @@ nlu:
     - buy some [usd](tokenOut) with [222](amountIn) [Ctoken](tokenIn)
     - buy some [ddd](tokenOut) with [323.5](amountIn) [ether](tokenIn)
     - buy some [xxx](tokenOut) with [11000](amountIn) [ETH](tokenIn)
+    
     - buy [eth](tokenOut)
     - buy some [uni](tokenOut)
     - buy some
