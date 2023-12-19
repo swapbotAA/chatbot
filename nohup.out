@@ -1,0 +1,179 @@
+/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/tracker_store.py:1044: MovedIn20Warning: Deprecated API features detected! These feature(s) are not compatible with SQLAlchemy 2.0. To prevent incompatible upgrades prior to updating applications, ensure requirements files are pinned to "sqlalchemy<2.0". Set environment variable SQLALCHEMY_WARN_20=1 to show all deprecation warnings.  Set environment variable SQLALCHEMY_SILENCE_UBER_WARNING=1 to silence this message. (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  Base: DeclarativeMeta = declarative_base()
+/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/shared/utils/validation.py:134: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+/usr/local/lib/python3.9/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('mpl_toolkits')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/usr/local/lib/python3.9/site-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('ruamel')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/usr/local/lib/python3.9/site-packages/sanic_cors/extension.py:39: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  SANIC_VERSION = LooseVersion(sanic_version)
+2023-11-29 18:03:06 INFO     root  - Starting Rasa server on http://0.0.0.0:5005
+2023-11-29 18:03:06 INFO     rasa.core.processor  - Loading model models/20231127-113658-meek-elk.tar.gz...
+[2023-11-29 18:03:24 +0800] [5488] [ERROR] Experienced exception while trying to serve
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/sanic/app.py", line 1204, in run
+    serve_single(server_settings)
+  File "/usr/local/lib/python3.9/site-packages/sanic/server/runners.py", line 206, in serve_single
+    serve(**server_settings)
+  File "/usr/local/lib/python3.9/site-packages/sanic/server/runners.py", line 130, in serve
+    loop.run_until_complete(app._server_event("init", "before"))
+  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
+  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
+  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
+  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
+  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
+  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
+  File "uvloop/cbhandles.pyx", line 61, in uvloop.loop.Handle._run
+  File "/usr/local/lib/python3.9/site-packages/sanic/app.py", line 2000, in _server_event
+    await self.dispatch(
+  File "/usr/local/lib/python3.9/site-packages/sanic/signals.py", line 191, in dispatch
+    return await dispatch
+  File "/usr/local/lib/python3.9/site-packages/sanic/signals.py", line 161, in _dispatch
+    retval = await maybe_coroutine
+  File "/usr/local/lib/python3.9/site-packages/sanic/app.py", line 1524, in _listener
+    await maybe_coro
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/run.py", line 257, in load_agent_on_start
+    app.ctx.agent = await agent.load_agent(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/agent.py", line 248, in load_agent
+    agent.load_model(model_path)
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/agent.py", line 346, in load_model
+    self.processor = MessageProcessor(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/processor.py", line 101, in __init__
+    self.model_filename, self.model_metadata, self.graph_runner = self._load_model(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/processor.py", line 138, in _load_model
+    metadata, runner = loader.load_predict_graph_runner(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/loader.py", line 29, in load_predict_graph_runner
+    runner = graph_runner_class.create(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/runner/dask.py", line 51, in create
+    return cls(graph_schema, model_storage, execution_context, hooks)
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/runner/dask.py", line 37, in __init__
+    self._instantiated_nodes: Dict[Text, GraphNode] = self._instantiate_nodes(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/runner/dask.py", line 60, in _instantiate_nodes
+    return {
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/runner/dask.py", line 61, in <dictcomp>
+    node_name: GraphNode.from_schema_node(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/graph.py", line 566, in from_schema_node
+    return cls(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/graph.py", line 392, in __init__
+    self._load_component()
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/graph.py", line 403, in _load_component
+    self._component: GraphComponent = constructor(  # type: ignore[no-redef]
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/policies/ted_policy.py", line 1052, in load
+    return cls._load(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/policies/ted_policy.py", line 1096, in _load
+    model = cls._load_tf_model(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/policies/ted_policy.py", line 1145, in _load_tf_model
+    model = cls.model_class().load(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/utils/tensorflow/models.py", line 445, in load
+    model.fit(data_generator, verbose=False)
+  File "/usr/local/lib/python3.9/site-packages/keras/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/keras/engine/training.py", line 1685, in fit
+    tmp_logs = self.train_function(iterator)
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 894, in __call__
+    result = self._call(*args, **kwds)
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 959, in _call
+    return self._no_variable_creation_fn(*args, **kwds)
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compiler.py", line 143, in __call__
+    return concrete_function._call_flat(
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/monomorphic_function.py", line 1757, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/monomorphic_function.py", line 381, in call
+    outputs = execute.execute(
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/execute.py", line 52, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/local/Cellar/python@3.9/3.9.10/Frameworks/Python.framework/Versions/3.9/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/local/Cellar/python@3.9/3.9.10/Frameworks/Python.framework/Versions/3.9/lib/python3.9/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/__main__.py", line 151, in <module>
+    main()
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/__main__.py", line 133, in main
+    cmdline_arguments.func(cmdline_arguments)
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/cli/run.py", line 93, in run
+    rasa.run(**vars(args))
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/api.py", line 56, in run
+    rasa.core.run.serve_application(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/run.py", line 235, in serve_application
+    app.run(
+  File "/usr/local/lib/python3.9/site-packages/sanic/app.py", line 1204, in run
+    serve_single(server_settings)
+  File "/usr/local/lib/python3.9/site-packages/sanic/server/runners.py", line 206, in serve_single
+    serve(**server_settings)
+  File "/usr/local/lib/python3.9/site-packages/sanic/server/runners.py", line 130, in serve
+    loop.run_until_complete(app._server_event("init", "before"))
+  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
+  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
+  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
+  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
+  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
+  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
+  File "uvloop/cbhandles.pyx", line 61, in uvloop.loop.Handle._run
+  File "/usr/local/lib/python3.9/site-packages/sanic/app.py", line 2000, in _server_event
+    await self.dispatch(
+  File "/usr/local/lib/python3.9/site-packages/sanic/signals.py", line 191, in dispatch
+    return await dispatch
+  File "/usr/local/lib/python3.9/site-packages/sanic/signals.py", line 161, in _dispatch
+    retval = await maybe_coroutine
+  File "/usr/local/lib/python3.9/site-packages/sanic/app.py", line 1524, in _listener
+    await maybe_coro
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/run.py", line 257, in load_agent_on_start
+    app.ctx.agent = await agent.load_agent(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/agent.py", line 248, in load_agent
+    agent.load_model(model_path)
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/agent.py", line 346, in load_model
+    self.processor = MessageProcessor(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/processor.py", line 101, in __init__
+    self.model_filename, self.model_metadata, self.graph_runner = self._load_model(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/processor.py", line 138, in _load_model
+    metadata, runner = loader.load_predict_graph_runner(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/loader.py", line 29, in load_predict_graph_runner
+    runner = graph_runner_class.create(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/runner/dask.py", line 51, in create
+    return cls(graph_schema, model_storage, execution_context, hooks)
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/runner/dask.py", line 37, in __init__
+    self._instantiated_nodes: Dict[Text, GraphNode] = self._instantiate_nodes(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/runner/dask.py", line 60, in _instantiate_nodes
+    return {
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/runner/dask.py", line 61, in <dictcomp>
+    node_name: GraphNode.from_schema_node(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/graph.py", line 566, in from_schema_node
+    return cls(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/graph.py", line 392, in __init__
+    self._load_component()
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/engine/graph.py", line 403, in _load_component
+    self._component: GraphComponent = constructor(  # type: ignore[no-redef]
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/policies/ted_policy.py", line 1052, in load
+    return cls._load(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/policies/ted_policy.py", line 1096, in _load
+    model = cls._load_tf_model(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/core/policies/ted_policy.py", line 1145, in _load_tf_model
+    model = cls.model_class().load(
+  File "/Users/aolin/Library/Python/3.9/lib/python/site-packages/rasa/utils/tensorflow/models.py", line 445, in load
+    model.fit(data_generator, verbose=False)
+  File "/usr/local/lib/python3.9/site-packages/keras/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/keras/engine/training.py", line 1685, in fit
+    tmp_logs = self.train_function(iterator)
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 894, in __call__
+    result = self._call(*args, **kwds)
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 959, in _call
+    return self._no_variable_creation_fn(*args, **kwds)
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compiler.py", line 143, in __call__
+    return concrete_function._call_flat(
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/monomorphic_function.py", line 1757, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/polymorphic_function/monomorphic_function.py", line 381, in call
+    outputs = execute.execute(
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/eager/execute.py", line 52, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+KeyboardInterrupt
