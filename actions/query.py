@@ -3,7 +3,9 @@
 import httpx
 
 from dotenv import dotenv_values
-
+from requests import Request, Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+import json
 # import urllib3 
 # http = urllib3.PoolManager()
 config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
@@ -30,4 +32,35 @@ def queryPoolAddress(baseTokenAddress, quoteTokenAddress):
     print(rtv)
 
 
-queryPoolAddress("0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14","0x0000000000000000000000000000000000000000")
+# queryPoolAddress("0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14","0x0000000000000000000000000000000000000000")
+
+def getEstimatedAmountOut(tokenIn, tokenOut, amountIn):
+    url = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest'
+    symbols = tokenIn+","+tokenOut
+    parameters = {
+    'symbol':symbols,
+    }
+    headers = {
+    'Accepts': 'application/json',
+    'X-CMC_PRO_API_KEY': config.get("CMC_KEY"),
+    }
+
+    session = Session()
+    session.headers.update(headers)
+
+    try:
+        response = session.get(url, params=parameters)
+        data = json.loads(response.text)
+        price_1=data["data"][tokenIn][0]["quote"]["USD"]["price"]
+        price_2=data["data"][tokenOut][0]["quote"]["USD"]["price"]
+        amountOut = float(amountIn) * price_1 / price_2
+        amountOut = str(round(amountOut, 6))
+        print(price_1, price_2)
+        
+        print(amountOut)
+        
+        return amountOut
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        print(e)
+        return None
+        

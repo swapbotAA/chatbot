@@ -7,7 +7,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet, AllSlotsReset
 from rasa_sdk.types import DomainDict
 from dotenv import dotenv_values
-
+from .query import getEstimatedAmountOut
 config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
 
 
@@ -72,11 +72,19 @@ class ValidateExactInputForm(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
         print(f"minimalAmountOut registered: {slot_value}")
-        
-        if is_number(slot_value) == False:
-            dispatcher.utter_message(text =f"invalid number: {slot_value}")
-            return {"minimalAmountOut": None}       
-        return {"minimalAmountOut": slot_value}            
+         
+        # market price
+        slot_value = slot_value.upper()
+        if slot_value == "Y" or slot_value == "YES":
+            return {"minimalAmountOut": 0}  
+        if slot_value == "N" or slot_value == "NO":
+            return {"minimalAmountOut": None, "amountIn":None, "tokenIn":None, "tokenOut":None, "tokenInContract": None, "tokenOutContract": None }  
+        # limit order
+        if is_number(slot_value) == True:
+            return {"minimalAmountOut": slot_value}  
+               
+        dispatcher.utter_message(text =f"unrecognize value: {slot_value}")
+        return {"minimalAmountOut": None}            
     
     def validate_tokenOut(
         self,
@@ -154,9 +162,12 @@ class ActionSubmitExactInputForm(Action):
         tokenOut = tracker.get_slot("tokenOut")
         amountIn = tracker.get_slot("amountIn")
         minimalAmountOut = tracker.get_slot("minimalAmountOut")
+        if minimalAmountOut == 0:
+            minimalAmountOut = ""
 
         tokenInContract = tracker.get_slot("tokenInContract")
         tokenOutContract = tracker.get_slot("tokenOutContract")
+        
 
         response_text = response["text"].format(TokenIn=tokenIn, TokenOut=tokenOut, AmountIn=amountIn,MinimalAmountOut=minimalAmountOut, TokenInContract=tokenInContract, TokenOutContract=tokenOutContract)
 
@@ -184,11 +195,18 @@ class checkMinimalAmountOutContract(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
+        tokenIn = tracker.get_slot("tokenIn")
+        amountIn = tracker.get_slot("amountIn")
         tokenOut = tracker.get_slot("tokenOut")
-        if tokenOut != None:
-            dispatcher.utter_message(text =f"What is the minimal amount of {tokenOut} you would like to ask?\n --You can always enter \'0\' to make swap immediately, the amount you receive will depend on market rate\n --or you can ask for a higher market rate, Sparky will treat the operation as a limit order and make swap for you whenever possible")
-        return []
+        
+        try:
+            estimatedAmountOut = getEstimatedAmountOut(tokenIn,tokenOut,amountIn)
+            dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for estimated {estimatedAmountOut} {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")            
+            return []
+        except:
+            print("get price failed")
+            dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")
+            return []
 
 
 class checkTokenInContract(Action):
@@ -364,7 +382,7 @@ class ValidateCopyTradingForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         
         if len(slot_value) != 42:
-            dispatcher.utter_message(text =f"invalid contract address: {slot_value}")
+            dispatcher.utter_message(text =f"invalid target address: {slot_value}")
             return {"targetAddress": None} 
         return {"targetAddress": slot_value} 
 
@@ -405,16 +423,16 @@ class ActionSubmitCopyTradingForm(Action):
         return [AllSlotsReset(None)]
     
 
-class askCopyTradingTargetAddress(Action):
-    def name(self) -> Text:
-        return "action_ask_copyTrading_form_targetAddress"
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            targetAddress = tracker.get_slot("targetAddress")
-            if targetAddress != None:
-                dispatcher.utter_message(text =f"Which address is your target for copy trading?")
-            return []
+# class askCopyTradingTargetAddress(Action):
+#     def name(self) -> Text:
+#         return "action_ask_copyTrading_form_targetAddress"
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#         targetAddress = tracker.get_slot("targetAddress")
+#         if targetAddress != None:
+#             dispatcher.utter_message(text =f"Which address is your target for copy trading?")
+#         return []
         
 class askCopyMaximalAmountOfCopyTradingAddress(Action):
     def name(self) -> Text:
@@ -422,9 +440,8 @@ class askCopyMaximalAmountOfCopyTradingAddress(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            targetAddress = tracker.get_slot("targetAddress")
+        targetAddress = tracker.get_slot("targetAddress")
             
-            maximalAmountOfCopyTrading = tracker.get_slot("maximalAmountOfCopyTrading")
-            if maximalAmountOfCopyTrading != None:
-                dispatcher.utter_message(text =f"What is the maximal amount of ETH you would like to pay in each copy trading from {targetAddress}?")
-            return []
+        if targetAddress != None:
+            dispatcher.utter_message(text =f"What is the maximal amount of ETH you would like to pay in each copy trading from {targetAddress}?")
+        return []

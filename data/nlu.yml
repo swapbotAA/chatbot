@@ -131,6 +131,9 @@ nlu:
 - intent: copyTrading
   examples: |
     - copy
+    - copy address
+    - copyTrading
+    - I want to copy transactions
     - follow
     - copy [0x1234567890123456789012345678901234567890](targetAddress)
     - copy [0x2234567890123456789012345678901234567890](targetAddress)
@@ -142,7 +145,6 @@ nlu:
     - copy [0xd034567890123456789012345678901234567890](targetAddress) with [0.1](maximalAmountOfCopyTrading) 
     - copy [0xff34567890123456789012345678901234567890](targetAddress) with [0.1](maximalAmountOfCopyTrading) eth each
     - copy [0x0031567890123456789012345678901234567890](targetAddress) with [0.1](maximalAmountOfCopyTrading) eth 
-
     - follow [0x1234567890123456789012345678901234567890](targetAddress)
     - follow [0x2234567890123456789012345678901234567890](targetAddress)
     - follow [0x3334567890123456789012345678901234567890](targetAddress)

@@ -218,9 +218,8 @@ responses:
   - text: |
       Operation submitted: [SWAP]
       ---------------------------------------------------------- 
-      You Pay: {AmountIn} {TokenIn}(contract address: {TokenInContract})
-      You Ask: at least {MinimalAmountOut} {TokenOut}(contract address: {TokenOutContract})
-      (Asking for a higher price than market rate will turn this into a limit order)
+      You Pay: {AmountIn} {TokenIn} (contract address: {TokenInContract})
+      You Ask: {MinimalAmountOut} {TokenOut} (contract address: {TokenOutContract})
   utter_goodbye:
   - text: Bye
   utter_stop:
@@ -254,7 +253,7 @@ responses:
   - text: which address you want to copy transactions from
   utter_ask_copyTrading_form_amountIn:
   - text: In each copy transaction, what is the cap amount of ETH you would like to swap
-  utter_submit_copyTrading_form_maximalAmountOfCopyTrading:
+  utter_submit_copyTrading_form:
   - text: |
       Operation submitted: [COPY]
       ---------------------------------------------------------- 
@@ -269,7 +268,7 @@ responses:
       -> make transfers 
       -> swap tokens immediately
       -> place limit orders
-      -> mirror trades [under development]
+      -> copy trading
 
 
 
@@ -286,7 +285,6 @@ actions:
 - action_ask_sendToken_form_tokenInContract
 - validate_copyTrading_form
 - action_submit_copyTrading_form
-- action_ask_copyTrading_form_targetAddress
 - action_ask_copyTrading_form_maximalAmountOfCopyTrading
 session_config:
   session_expiration_time: 60
