@@ -77,11 +77,14 @@ class ValidateExactInputForm(FormValidationAction):
         slot_value = slot_value.upper()
         if slot_value == "Y" or slot_value == "YES":
             return {"minimalAmountOut": 0}  
+            return [] 
+        
         if slot_value == "N" or slot_value == "NO":
             return {"minimalAmountOut": None, "amountIn":None, "tokenIn":None, "tokenOut":None, "tokenInContract": None, "tokenOutContract": None }  
         # limit order
         if is_number(slot_value) == True:
-            return {"minimalAmountOut": slot_value}  
+            return {"minimalAmountOut": slot_value} 
+        
                
         dispatcher.utter_message(text =f"unrecognize value: {slot_value}")
         return {"minimalAmountOut": None}            
@@ -189,7 +192,7 @@ class checkAmountInContract(Action):
             dispatcher.utter_message(text =f"How many {tokenIn} you would like to pay")
         return []
 
-class checkMinimalAmountOutContract(Action):
+class checkMinimalAmountOut(Action):
     def name(self) -> Text:
         return "action_ask_exactInput_form_minimalAmountOut"
     def run(self, dispatcher: CollectingDispatcher,
@@ -203,6 +206,7 @@ class checkMinimalAmountOutContract(Action):
             estimatedAmountOut = getEstimatedAmountOut(tokenIn,tokenOut,amountIn)
             dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for estimated {estimatedAmountOut} {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")            
             return []
+            return {"amountOut": estimatedAmountOut}
         except:
             print("get price failed")
             dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")
