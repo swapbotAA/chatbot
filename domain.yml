@@ -12,6 +12,7 @@ intents:
 - introduce
 - inform
 - sendToken
+- copyTrading
 
 entities:
 - tokenIn
@@ -21,6 +22,8 @@ entities:
 - tokenInContract
 - tokenOutContract
 - addressOut
+- targetAddress
+- maximalAmountOfCopyTrading
 
 slots:
   tokenIn:
@@ -163,6 +166,28 @@ slots:
         conditions:
         - active_loop: sendToken_form
           requested_slot: addressOut
+          
+  targetAddress:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: targetAddress
+      - type: from_text
+        conditions:
+        - active_loop: copyTrading_form
+          requested_slot: targetAddress
+
+  maximalAmountOfCopyTrading:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: maximalAmountOfCopyTrading
+      - type: from_text
+        conditions:
+        - active_loop: copyTrading_form
+          requested_slot: maximalAmountOfCopyTrading
 
 forms:
   exactInput_form:
@@ -179,6 +204,10 @@ forms:
     - amountIn
     - addressOut
     - tokenInContract
+  copyTrading_form:
+    required_slots:
+    - targetAddress
+    - maximalAmountOfCopyTrading
 
 responses:
   utter_greet:
@@ -221,6 +250,18 @@ responses:
       You Send: {AmountIn} {TokenIn}(contract address: {TokenInContract})
       Recepient: {AddressOut}
 
+  utter_ask_copyTrading_form_targetAddress:
+  - text: which address you want to copy transactions from
+  utter_ask_copyTrading_form_amountIn:
+  - text: In each copy transaction, what is the cap amount of ETH you would like to swap
+  utter_submit_copyTrading_form_maximalAmountOfCopyTrading:
+  - text: |
+      Operation submitted: [COPY]
+      ---------------------------------------------------------- 
+      You Copy Transactions from: {TargetAddress}
+      Cap amount of paid ETH in each transaction: {MaximalAmountOfCopyTrading}
+
+
   utter_introduce:
   - text: |
       I can help you do followings
@@ -243,6 +284,10 @@ actions:
 - validate_sendToken_form
 - action_submit_sendToken_form
 - action_ask_sendToken_form_tokenInContract
+- validate_copyTrading_form
+- action_submit_copyTrading_form
+- action_ask_copyTrading_form_targetAddress
+- action_ask_copyTrading_form_maximalAmountOfCopyTrading
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

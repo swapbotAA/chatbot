@@ -255,16 +255,6 @@ class ValidateSendTokenForm(FormValidationAction):
         
         slot_value = slot_value.upper()
         print(f"tokenIn registered: {slot_value}")
-
-        # forbid same tokenIn and tokenOut
-        # tokenOut = tracker.get_slot("tokenOut")
-        # if tokenOut != None:
-        #     tokenOut = tokenOut.upper()
-        #     if tokenIn != None:
-        #         tokenIn = tokenIn.upper()
-        #         if tokenIn == tokenOut:
-        #             return {"tokenIn": None}
-    
         tokenInContract = config.get(slot_value)
         print(f"tokenInContract: {tokenInContract}")
         if tokenInContract!=None:
@@ -345,7 +335,7 @@ class ActionSubmitSendTokenForm(Action):
         # return [SlotSet('tokenIn', None), SlotSet('addressOut', None), SlotSet('amountIn', None)]
         return [AllSlotsReset(None)]
 
-class checkSendTokenTokenOutContract(Action):
+class checkSendTokenTokenInContract(Action):
     def name(self) -> Text:
         return "action_ask_sendToken_form_tokenInContract"
     def run(self, dispatcher: CollectingDispatcher,
@@ -356,3 +346,85 @@ class checkSendTokenTokenOutContract(Action):
     
         return []
 
+
+# copyTrading
+
+class ValidateCopyTradingForm(FormValidationAction):
+
+    def name(self) -> Text:
+        return "validate_copyTrading_form"
+    
+    # query flow: targetAddress, maximalAmountOfCopyTrading
+    def validate_targetAddress(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        
+        if len(slot_value) != 42:
+            dispatcher.utter_message(text =f"invalid contract address: {slot_value}")
+            return {"targetAddress": None} 
+        return {"targetAddress": slot_value} 
+
+    def validate_maximalAmountOfCopyTrading(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:        
+        if is_number(slot_value) == False:
+            dispatcher.utter_message(text =f"invalid number: {slot_value}")
+            return {"maximalAmountOfCopyTrading": None}       
+        return {"maximalAmountOfCopyTrading": slot_value}       
+        
+class ActionSubmitCopyTradingForm(Action):
+
+    def name(self) -> Text:
+        return "action_submit_copyTrading_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        print(f"form submited")
+        response = domain["responses"]["utter_submit_copyTrading_form"][0]
+
+        targetAddress = tracker.get_slot("targetAddress")
+        maximalAmountOfCopyTrading = tracker.get_slot("maximalAmountOfCopyTrading")
+    
+
+        response_text = response["text"].format(TargetAddress=targetAddress, MaximalAmountOfCopyTrading=maximalAmountOfCopyTrading)
+
+        dispatcher.utter_message(text =response_text)
+
+          
+        # return [SlotSet('tokenIn', None), SlotSet('addressOut', None), SlotSet('amountIn', None)]
+        return [AllSlotsReset(None)]
+    
+
+class askCopyTradingTargetAddress(Action):
+    def name(self) -> Text:
+        return "action_ask_copyTrading_form_targetAddress"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            targetAddress = tracker.get_slot("targetAddress")
+            if targetAddress != None:
+                dispatcher.utter_message(text =f"Which address is your target for copy trading?")
+            return []
+        
+class askCopyMaximalAmountOfCopyTradingAddress(Action):
+    def name(self) -> Text:
+        return "action_ask_copyTrading_form_maximalAmountOfCopyTrading"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            targetAddress = tracker.get_slot("targetAddress")
+            
+            maximalAmountOfCopyTrading = tracker.get_slot("maximalAmountOfCopyTrading")
+            if maximalAmountOfCopyTrading != None:
+                dispatcher.utter_message(text =f"What is the maximal amount of ETH you would like to pay in each copy trading from {targetAddress}?")
+            return []

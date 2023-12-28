@@ -42,6 +42,12 @@ nlu:
     - am I talking to a human?
     - who are you
 
+- intent: out_of_scope
+  examples: |
+    - I want to order food
+    - What is 2 + 2?
+    - Who's the US President?
+    
 - intent: introduce
   examples: |
     - what can you do
@@ -122,6 +128,26 @@ nlu:
     - make transfer
     
 
+- intent: copyTrading
+  examples: |
+    - copy
+    - follow
+    - copy [0x1234567890123456789012345678901234567890](targetAddress)
+    - copy [0x2234567890123456789012345678901234567890](targetAddress)
+    - copy [0x3334567890123456789012345678901234567890](targetAddress)
+    - copy [0xab34567890123456789012345678901234567890](targetAddress)
+    - copy [0x4134567890123456789012345678901234567890](targetAddress)
+    - copy [0x0034567890123456789012345678901234567890](targetAddress) with [0.5](maximalAmountOfCopyTrading) eth each
+    - copy [0xc034567890123456789012345678901234567890](targetAddress) with [1](maximalAmountOfCopyTrading) eth 
+    - copy [0xd034567890123456789012345678901234567890](targetAddress) with [0.1](maximalAmountOfCopyTrading) 
+    - copy [0xff34567890123456789012345678901234567890](targetAddress) with [0.1](maximalAmountOfCopyTrading) eth each
+    - copy [0x0031567890123456789012345678901234567890](targetAddress) with [0.1](maximalAmountOfCopyTrading) eth 
+
+    - follow [0x1234567890123456789012345678901234567890](targetAddress)
+    - follow [0x2234567890123456789012345678901234567890](targetAddress)
+    - follow [0x3334567890123456789012345678901234567890](targetAddress)
+    - follow [0xab34567890123456789012345678901234567890](targetAddress)
+    - follow [0x4134567890123456789012345678901234567890](targetAddress)
 
 
 
