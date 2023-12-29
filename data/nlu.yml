@@ -67,6 +67,9 @@ nlu:
     - swap [1](amountIn) [uni](tokenIn) for [200](minimalAmountOut) [eth](tokenOut)
     - swap [0.5](amountIn) [dai](tokenIn) for [1](minimalAmountOut) [eth](tokenOut)
     - swap [10000](amountIn) [usdc](tokenIn) for [1](minimalAmountOut) [eth](tokenOut)
+    - swap [eth](tokenIn) for [usdt](tokenOut)
+    - swap [uni](tokenIn) for [xxx](tokenOut)
+
 
     - swap [5](amountIn) [ETH](tokenIn) for [USDT](tokenOut)
     - swap [0.001](amountIn) [eth](tokenIn) for [usdt](tokenOut)
@@ -119,8 +122,12 @@ nlu:
     - transfer some [uni](tokenIn) to [0x1234567890123456789012345678901234567890](addressOut) 
     - transfer to [0x1234567890123456789012345678901234567890](addressOut) 
     - transfer [fze](tokenIn)
+    - transfer [ETH](tokenIn)
+    - transfer [eth](tokenIn)
+    - transfer [uni](tokenIn)
+    - transfer [xxxxxx](tokenIn)
     - send
-    - send eth
+    - send [eth](tokenIn)
     - send some tokens
     - transfer
     - transfer usdt
