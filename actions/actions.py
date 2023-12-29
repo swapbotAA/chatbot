@@ -202,15 +202,18 @@ class checkMinimalAmountOut(Action):
         amountIn = tracker.get_slot("amountIn")
         tokenOut = tracker.get_slot("tokenOut")
         
-        try:
-            estimatedAmountOut = getEstimatedAmountOut(tokenIn,tokenOut,amountIn)
-            dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for estimated {estimatedAmountOut} {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")            
-            return []
-            return {"amountOut": estimatedAmountOut}
-        except:
-            print("get price failed")
-            dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")
-            return []
+        
+        dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")
+        
+        # try:
+        #     estimatedAmountOut = getEstimatedAmountOut(tokenIn,tokenOut,amountIn)
+        #     dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for estimated {estimatedAmountOut} {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")            
+        #     return []
+        #     return {"amountOut": estimatedAmountOut}
+        # except:
+        #     print("get price failed")
+        #     dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")
+        #     return []
 
 
 class checkTokenInContract(Action):
