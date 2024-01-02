@@ -1,3 +1,5 @@
 .rasa
+/models
 .env
 actions/__pycache__
+start.sh

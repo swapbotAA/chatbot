@@ -19,7 +19,7 @@ rules:
 
 - rule: Fallback functions
   steps:
-  - intent: nlu_fallback
+  - intent: out_of_scope
   - action: utter_nlu_fallback
 
 - rule: Activate exactInput_form when no other form is active
@@ -59,6 +59,25 @@ rules:
   - slot_was_set:
     - requested_slot: null
   - action: action_submit_sendToken_form
+
+- rule: Activate copyTrading_form when no other form is active
+  condition:
+  # this condition allows stories to handle form switching
+  - active_loop: null
+  steps:
+  - intent: copyTrading
+  - action: copyTrading_form
+  - active_loop: copyTrading_form
+
+- rule: Submit copyTrading_form while all filled
+  condition:
+  - active_loop: copyTrading_form
+  steps:
+  - action: copyTrading_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_copyTrading_form
 
 - rule: User interrupts the form and doesn't want to continue
   steps:
