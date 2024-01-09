@@ -225,7 +225,7 @@ responses:
   utter_stop:
   - text: Sure, previousactions have been teminated. Tell me what you want 
   utter_iamabot:
-  - text: My name is Sparky, I am a trustless dex-trading tool
+  - text: My name is Sparky, I am a smart agent designed for DEX trading
   utter_nlu_fallback:
   - text: I am not sure what you are talking about, please rephrase
   utter_ask_exactInput_form_tokenOut:

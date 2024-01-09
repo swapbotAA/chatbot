@@ -22,6 +22,8 @@ nlu:
     - cee you later
     - good night
     - bye
+    - hi
+    - hello
     - goodbye
     - have a nice day
     - see you around
@@ -70,7 +72,6 @@ nlu:
     - swap [eth](tokenIn) for [usdt](tokenOut)
     - swap [uni](tokenIn) for [xxx](tokenOut)
 
-
     - swap [5](amountIn) [ETH](tokenIn) for [USDT](tokenOut)
     - swap [0.001](amountIn) [eth](tokenIn) for [usdt](tokenOut)
     - swap [2.1](amountIn) [ETH](tokenIn) for [USDT](tokenOut)
@@ -108,17 +109,20 @@ nlu:
     - purchase [4000][minimalAmountOut] [Frx](tokenOut) with [22](amountIn) [eth](tokenIn)
     - purchase [0.2][minimalAmountOut] [usdt](tokenOut) with [22](amountIn) [eth](tokenIn)
 
+    - place limit order
+    - place orders
+    - order
 
 - intent: sendToken
   examples: |
-    - transfer[2](amountIn) [ETH](tokenIn) to [0x0000000000000000000000000000000000000000](addressOut)
-    - transfer[2.55](amountIn) [frax](tokenIn) to [0x0000000000000000000000000000000000000123](addressOut)
-    - transfer[300000](amountIn) [usdt](tokenIn) to [0xffffffffffffffffffffffffffffffffffffffff](addressOut)
-    - transfer[0.0001](amountIn) [uni](tokenIn) to [0x1234567890123456789012345678901234567890](addressOut)
-    - send[2](amountIn) [ETH](tokenIn) to [0x0000000000000000000000000000000000000000](addressOut)
-    - send[2.55](amountIn) [frax](tokenIn) to [0x0000000000000000000000000000000000000123](addressOut)
-    - send[300000](amountIn) [usdt](tokenIn) to [0xffffffffffffffffffffffffffffffffffffffff](addressOut)
-    - send[0.0001](amountIn) [uni](tokenIn) to [0x1234567890123456789012345678901234567890](addressOut)    
+    - transfer [2](amountIn) [ETH](tokenIn) to [0x0000000000000000000000000000000000000000](addressOut)
+    - transfer [2.55](amountIn) [frax](tokenIn) to [0x0000000000000000000000000000000000000123](addressOut)
+    - transfer [300000](amountIn) [usdt](tokenIn) to [0xffffffffffffffffffffffffffffffffffffffff](addressOut)
+    - transfer [0.0001](amountIn) [uni](tokenIn) to [0x1234567890123456789012345678901234567890](addressOut)
+    - send [2](amountIn) [ETH](tokenIn) to [0x0000000000000000000000000000000000000000](addressOut)
+    - send [2.55](amountIn) [frax](tokenIn) to [0x0000000000000000000000000000000000000123](addressOut)
+    - send [300000](amountIn) [usdt](tokenIn) to [0xffffffffffffffffffffffffffffffffffffffff](addressOut)
+    - send [0.0001](amountIn) [uni](tokenIn) to [0x1234567890123456789012345678901234567890](addressOut)    
     - transfer some [uni](tokenIn) to [0x1234567890123456789012345678901234567890](addressOut) 
     - transfer to [0x1234567890123456789012345678901234567890](addressOut) 
     - transfer [fze](tokenIn)
