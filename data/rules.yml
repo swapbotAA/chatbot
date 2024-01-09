@@ -2,6 +2,12 @@ version: "3.1"
 
 rules:
 
+
+- rule: greeting
+  steps:
+  - intent: greet
+  - action: utter_greet
+
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
@@ -19,8 +25,8 @@ rules:
 
 - rule: Fallback functions
   steps:
-  - intent: out_of_scope
-  - action: utter_nlu_fallback
+  - intent: nlu_fallback
+  - action: action_llm
 
 - rule: Activate exactInput_form when no other form is active
   condition:

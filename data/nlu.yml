@@ -15,6 +15,7 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    
 - intent: goodbye
   examples: |
     - cu
@@ -22,19 +23,13 @@ nlu:
     - cee you later
     - good night
     - bye
-    - hi
-    - hello
     - goodbye
     - have a nice day
     - see you around
     - bye bye
     - see you later
 
-- intent: stop
-  examples: |
-    - stop
-    - reset
-    - clear
+
 
 - intent: bot_challenge
   examples: |
@@ -44,12 +39,7 @@ nlu:
     - am I talking to a human?
     - who are you
 
-- intent: out_of_scope
-  examples: |
-    - I want to order food
-    - What is 2 + 2?
-    - Who's the US President?
-    
+
 - intent: introduce
   examples: |
     - what can you do
@@ -162,26 +152,6 @@ nlu:
     - follow [0xab34567890123456789012345678901234567890](targetAddress)
     - follow [0x4134567890123456789012345678901234567890](targetAddress)
 
-
-
- 
-- intent: inform
-  examples: |
-    - 2000
-    - 14.5
-    - eth
-    - usdc
-    - Tehter
-    - ffff
-    - sdff
-    - dai
-    - usdt
-    - fzz
-    - zzzsss
-    - Tex
-    - 0x0000000000000000000000000000000000000000
-    - 0x1234567890123456789012345678901234567890
-    - 0xffffffffffffffffffffffffffffffffffffffff
 
 - regex: tokenIn
   examples: |

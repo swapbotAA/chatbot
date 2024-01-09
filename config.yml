@@ -47,6 +47,9 @@ pipeline:
 - name: ResponseSelector
   epochs: 100
   constrain_similarities: true
+- name: FallbackClassifier
+  threshold: 0.999
+
 
 
 # pipeline:

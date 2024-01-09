@@ -5,12 +5,9 @@ intents:
 - exactInput
 - goodbye
 - greet
-- name&number
 - enter_tokenOut
 - enter_tokenIn
-- stop
 - introduce
-- inform
 - sendToken
 - copyTrading
 
@@ -286,6 +283,7 @@ actions:
 - validate_copyTrading_form
 - action_submit_copyTrading_form
 - action_ask_copyTrading_form_maximalAmountOfCopyTrading
+- action_llm
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

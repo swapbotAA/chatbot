@@ -8,7 +8,44 @@ from rasa_sdk.events import SlotSet, AllSlotsReset
 from rasa_sdk.types import DomainDict
 from dotenv import dotenv_values
 from .query import getEstimatedAmountOut
-config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
+
+import os
+
+from llama_index import VectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage,ServiceContext,KeywordTableIndex
+from llama_index.llms import OpenAI
+
+from llama_index.llms.llama_api import LlamaAPI
+import openai
+from llama_index.memory import ChatMemoryBuffer
+def init():
+    global chat_engine, config
+    config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
+    
+    OPENAI_API_KEY = config.get("OPENAI_API_KEY")
+    os.environ["OPENAI_API_KEY"]=OPENAI_API_KEY
+    openai.api_key = OPENAI_API_KEY
+
+    documents = SimpleDirectoryReader("data").load_data()
+    index = VectorStoreIndex.from_documents(documents)
+
+    llm = OpenAI(model="gpt-3.5-turbo", temperature=0)
+    service_context = ServiceContext.from_defaults(llm=llm)
+    memory = ChatMemoryBuffer.from_defaults(token_limit=15000)
+
+
+
+
+    # chat_engine = index.as_chat_engine(chat_mode="condense_question",service_context=service_context, memory=memory)
+    chat_engine = index.as_chat_engine(
+            chat_mode="context",
+            service_context=service_context,
+            memory=memory,
+            system_prompt=(
+            "I am a agent called Sparky and ready to help people exploring decentralized world" 
+            )
+        )
+        
+
 
 
 class ValidateExactInputForm(FormValidationAction):
@@ -452,3 +489,17 @@ class askCopyMaximalAmountOfCopyTradingAddress(Action):
         if targetAddress != None:
             dispatcher.utter_message(text =f"What is the maximal amount of ETH you would like to pay in each copy trading from {targetAddress}?")
         return []
+    
+    
+class ActionLLM(Action):
+    def name(self) -> Text:
+        return "action_llm"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        text_input = tracker.latest_message['text']
+        response = chat_engine.chat(text_input)
+        dispatcher.utter_message(text =f"{response}")            
+        
+        
+init()
