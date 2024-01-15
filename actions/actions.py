@@ -8,45 +8,41 @@ from rasa_sdk.events import SlotSet, AllSlotsReset
 from rasa_sdk.types import DomainDict
 from dotenv import dotenv_values
 from .query import getEstimatedAmountOut
+from .utils import is_number
+from .llm import Agent
+# import os
 
-import os
+# from llama_index import VectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage,ServiceContext,KeywordTableIndex
+# from llama_index.llms import OpenAI
 
-from llama_index import VectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage,ServiceContext,KeywordTableIndex
-from llama_index.llms import OpenAI
-
-from llama_index.llms.llama_api import LlamaAPI
-import openai
-from llama_index.memory import ChatMemoryBuffer
-def init():
-    global chat_engine, config
-    config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
+# from llama_index.llms.llama_api import LlamaAPI
+# import openai
+# from llama_index.memory import ChatMemoryBuffer
+# def init():
+#     global chat_engine, config
+#     config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
     
-    OPENAI_API_KEY = config.get("OPENAI_API_KEY")
-    os.environ["OPENAI_API_KEY"]=OPENAI_API_KEY
-    openai.api_key = OPENAI_API_KEY
+#     OPENAI_API_KEY = config.get("OPENAI_API_KEY")
+#     os.environ["OPENAI_API_KEY"]=OPENAI_API_KEY
+#     openai.api_key = OPENAI_API_KEY
 
-    documents = SimpleDirectoryReader("data").load_data()
-    index = VectorStoreIndex.from_documents(documents)
+#     documents = SimpleDirectoryReader("data").load_data()
+#     index = VectorStoreIndex.from_documents(documents)
 
-    llm = OpenAI(model="gpt-3.5-turbo", temperature=0)
-    service_context = ServiceContext.from_defaults(llm=llm)
-    memory = ChatMemoryBuffer.from_defaults(token_limit=15000)
+#     llm = OpenAI(model="gpt-3.5-turbo", temperature=0)
+#     service_context = ServiceContext.from_defaults(llm=llm)
+#     memory = ChatMemoryBuffer.from_defaults(token_limit=15000)
 
-
-
-
-    # chat_engine = index.as_chat_engine(chat_mode="condense_question",service_context=service_context, memory=memory)
-    chat_engine = index.as_chat_engine(
-            chat_mode="context",
-            service_context=service_context,
-            memory=memory,
-            system_prompt=(
-            "I am a agent called Sparky and ready to help people exploring decentralized world" 
-            )
-        )
+#     # chat_engine = index.as_chat_engine(chat_mode="condense_question",service_context=service_context, memory=memory)
+#     chat_engine = index.as_chat_engine(
+#             chat_mode="context",
+#             service_context=service_context,
+#             memory=memory,
+#             system_prompt=(
+#             "I am a agent called Sparky and ready to help people exploring decentralized world" 
+#             )
+#         )
         
-
-
 
 class ValidateExactInputForm(FormValidationAction):
 
@@ -138,17 +134,6 @@ class ValidateExactInputForm(FormValidationAction):
             return {"tokenOut": None}  
         slot_value = slot_value.upper()
         print(f"tokenOut registered: {slot_value}")
-
-        # forbid same tokenIn and tokenOut
-        # tokenOut = tracker.get_slot("tokenOut")
-        # if tokenOut != None:
-        #     tokenOut = tokenOut.upper()
-        #     if tokenIn != None:
-        #         tokenIn = tokenIn.upper()
-        #         if tokenIn == tokenOut:
-        #             return {"tokenOut": None}
-
-        # config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
         tokenOutContract = config.get(slot_value)
         if tokenOutContract!=None:
             print(f"tokenOutContract: {tokenOutContract}")
@@ -238,8 +223,8 @@ class checkMinimalAmountOut(Action):
         tokenIn = tracker.get_slot("tokenIn")
         amountIn = tracker.get_slot("amountIn")
         tokenOut = tracker.get_slot("tokenOut")
-        
-        
+        # limit order
+
         # dispatcher.utter_message(text =f"You want to swap {amountIn} {tokenIn} for {tokenOut} at market price? (Y/N), or you can give a specific amount of requested {tokenOut} to make it a limit order")
         
         try:
@@ -261,7 +246,8 @@ class checkTokenInContract(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         tokenIn = tracker.get_slot("tokenIn")
-        dispatcher.utter_message(text =f"{tokenIn} contract not found, please input its contract adress:")
+        network = config.get("NETWORK")
+        dispatcher.utter_message(text =f"{tokenIn} contract not found, please make sure {tokenIn} is available on {network} and input its contract adress.")
     
         return []
 
@@ -272,7 +258,8 @@ class checkTokenOutContract(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         tokenOut = tracker.get_slot("tokenOut")
-        dispatcher.utter_message(text =f"{tokenOut} contract not found, please input its contract adress:")
+        network = config.get("NETWORK")
+        dispatcher.utter_message(text =f"{tokenOut} contract not found, please make sure {tokenOut} is available on {network} and input its contract adress.")
     
         return []
 
@@ -286,18 +273,7 @@ class ActionClearSlot(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         return [AllSlotsReset()]
-def is_number(string):
-    try:
-        # Try to convert the string to an integer or a float
-        int(string)
-        return True  # It's an integer
-    except ValueError:
-        try:
-            float(string)
-            return True  # It's a float
-        except ValueError:
-            return False  # It's neither an integer nor a float
-   
+
 
 # sendTokens
 
@@ -498,8 +474,15 @@ class ActionLLM(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         text_input = tracker.latest_message['text']
-        response = chat_engine.chat(text_input)
-        dispatcher.utter_message(text =f"{response}")            
+        try:
+            response = chat_engine.chat(text_input)
+            dispatcher.utter_message(text =f"{response}")            
+        except ValueError:
+            print(ValueError)
+            dispatcher.utter_message(text =f"Oh I need to take a rest before answering coomplex questions, or I can assist you with executing transactions")            
+            
+    
+## start     
         
-        
-init()
+config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
+chat_engine = Agent().chat_engine

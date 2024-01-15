@@ -1,0 +1,5 @@
+How can I read real time price of cryptocurrency
+
+call following url to check price of a crypto: "https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest"
+method: "GET", parameters: "symbol:{crypto}",
+return return value to user

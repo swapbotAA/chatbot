@@ -42,9 +42,6 @@ nlu:
 
 - intent: introduce
   examples: |
-    - what can you do
-    - what services do you provide
-    - what are your functions
     - help me
     - help
     - instruction
