@@ -150,15 +150,15 @@ nlu:
     - follow [0x4134567890123456789012345678901234567890](targetAddress)
 
 
-- regex: tokenIn
-  examples: |
-    - \w{2,42}
-- regex: tokenOut
-  examples: |
-    - \w{2,42}
-- regex: tokenInContract
-  examples: |
-    - \w{40,42}
-- regex: tokenOutContract
-  examples: |
-    - \w{40,42}
+# - regex: tokenIn
+#   examples: |
+#     - \w{2,42}
+# - regex: tokenOut
+#   examples: |
+#     - \w{2,42}
+# - regex: tokenInContract
+#   examples: |
+#     - \w{40,42}
+# - regex: tokenOutContract
+#   examples: |
+#     - \w{40,42}
