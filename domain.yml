@@ -221,8 +221,7 @@ responses:
   - text: Bye
   utter_stop:
   - text: Sure, previousactions have been teminated. Tell me what you want 
-  utter_iamabot:
-  - text: My name is Sparky, I am a smart agent designed for DEX trading
+
   utter_nlu_fallback:
   - text: I am not sure what you are talking about, please rephrase
   utter_ask_exactInput_form_tokenOut:
@@ -260,12 +259,12 @@ responses:
 
   utter_introduce:
   - text: |
-      I can help you do followings
+      Hello, my name is sparky -- a LLM agent for DEX Trading, I can help you with these:
       ----------------------------
-      -> make transfers 
-      -> swap tokens immediately
-      -> place limit orders
-      -> copy trading
+      ✅ Ask me anything about blockchain and cryptocurrency, I will search answers based on my injective knowledges. 
+      ✅ Tell me how you would like to trade with DEX (currently supports UniswapV3)
+      ✅ Do some magics with MEV extraction & protection, I can help you send private transaction, limit order & copy-trading.
+
 
 
 
