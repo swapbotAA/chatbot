@@ -7,6 +7,8 @@ from llama_index.memory import ChatMemoryBuffer
 import os
 from dotenv import dotenv_values
 
+
+
 class Agent:
     def __init__(self):
         config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
@@ -18,8 +20,9 @@ class Agent:
         llm = OpenAI(model="gpt-3.5-turbo-1106", temperature=0)
         service_context = ServiceContext.from_defaults(llm=llm)
         memory = ChatMemoryBuffer.from_defaults(token_limit=15000)
-        agent = "Sparky"
-        organization = "Sparky Lab"
+        protocol = config.get("PROTOCOL")
+        network = config.get("NETWORK")
+        
         
         # chat_engine = index.as_chat_engine(chat_mode="condense_question",service_context=service_context, memory=memory)
         self.chat_engine = index.as_chat_engine(
@@ -30,9 +33,22 @@ class Agent:
         {
             "role": "system",
             "content": f"""[AGENT]:
-I am {agent} a very kind and enthusiastic customer support agent who loves to help customers. I am working on the behalf of "{organization}"
+My name is Sparky, I am a DEX-Trading agent based on LLM. I offer trading service with built-in smart wallet over DEX {protocol} at {network} network,
+and provide web3-knowledge-based assistance powered by custom LLM. 
 
-Given the following document from "{organization}", I will answer the [USER] questions combining the [DOCUMENT] and following the [RULES].
+as Sparky is built with Account Abstraction, users have following benefits:
+- self-custody: Sparky has no access to user account
+- gas free: users do not need to hold native token as gas
+- trade easy: no additional steps like approve ERC20 rather than talk to Sparky
+- trade smart: embrace web3 knowledge with llm
+
+list of trading service:
+- swap tokens over {protocol} for users
+- place limit orders
+- copy trading.
+
+principle of assistance service:
+I will answer the [USER] questions combining the [DOCUMENT] and following the [RULES].
 
 [DOCUMENT]:
 {documents}
@@ -40,7 +56,6 @@ Given the following document from "{organization}", I will answer the [USER] que
 [RULES]:
 I will answer the user's questions trying to combine the [DOCUMENT] provided. I will abide by the following rules:
 - I am a kind and helpful human, the best customer support agent in existence
-- I will refer title of [DOCUMENT] when use it.
 """,
         }
     ]

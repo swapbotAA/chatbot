@@ -16,36 +16,34 @@ nlu:
     - goodevening
     - good afternoon
     
-- intent: goodbye
-  examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+# - intent: goodbye
+#   examples: |
+#     - cu
+#     - good by
+#     - cee you later
+#     - good night
+#     - bye
+#     - goodbye
+#     - have a nice day
+#     - see you around
+#     - bye bye
+#     - see you later
+
+# - intent: bot_challenge
+#   examples: |
+#     - are you a bot?
+#     - are you a human?
+#     - am I talking to a bot?
+#     - am I talking to a human?
+#     - who are you
 
 
-
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
-    - who are you
-
-
-- intent: introduce
-  examples: |
-    - help me
-    - help
-    - instruction
-    - list services
+# - intent: introduce
+#   examples: |
+#     - help me
+#     - help
+#     - instruction
+#     - list services
 
 - intent: exactInput
   examples: |
@@ -58,6 +56,8 @@ nlu:
     - swap [10000](amountIn) [usdc](tokenIn) for [1](minimalAmountOut) [eth](tokenOut)
     - swap [eth](tokenIn) for [usdt](tokenOut)
     - swap [uni](tokenIn) for [xxx](tokenOut)
+    - swap [bnb](tokenIn) for [busd](tokenOut)
+    - swap [tusd](tokenIn) for [bnb](tokenOut)
 
     - swap [5](amountIn) [ETH](tokenIn) for [USDT](tokenOut)
     - swap [0.001](amountIn) [eth](tokenIn) for [usdt](tokenOut)
@@ -80,6 +80,7 @@ nlu:
     - buy some [usd](tokenOut) with [222](amountIn) [Ctoken](tokenIn)
     - buy some [ddd](tokenOut) with [323.5](amountIn) [ether](tokenIn)
     - buy some [xxx](tokenOut) with [11000](amountIn) [ETH](tokenIn)
+    - buy some [bnb](tokenOut)
     
     - buy [eth](tokenOut)
     - buy some [uni](tokenOut)
@@ -148,6 +149,10 @@ nlu:
     - follow [0x3334567890123456789012345678901234567890](targetAddress)
     - follow [0xab34567890123456789012345678901234567890](targetAddress)
     - follow [0x4134567890123456789012345678901234567890](targetAddress)
+    - copy transactions from [0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045](targetAddress)
+    - copy transactions from [0x0000000000000000000000000000000000000000](targetAddress)
+    - copy transactions from [0xffffffffffffffffffffffffffffffffffffffff](targetAddress)
+
 
 
 - regex: tokenIn
