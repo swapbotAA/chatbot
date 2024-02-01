@@ -8,20 +8,20 @@ rules:
   - intent: greet
   - action: utter_greet
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
+# - rule: Say goodbye anytime the user says goodbye
+#   steps:
+#   - intent: goodbye
+#   - action: utter_goodbye
 
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_introduce
+# - rule: Say 'I am a bot' anytime the user challenges
+#   steps:
+#   - intent: bot_challenge
+#   - action: utter_introduce
 
-- rule: Introduce anytime the user queries
-  steps:
-  - intent: introduce
-  - action: utter_introduce
+# - rule: Introduce anytime the user queries
+#   steps:
+#   - intent: introduce
+#   - action: utter_introduce
 
 - rule: Fallback functions
   steps:
