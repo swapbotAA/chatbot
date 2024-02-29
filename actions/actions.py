@@ -463,7 +463,7 @@ class askCopyMaximalAmountOfCopyTradingAddress(Action):
         targetAddress = tracker.get_slot("targetAddress")
             
         if targetAddress != None:
-            dispatcher.utter_message(text =f"What is the maximal amount of ETH you would like to pay in each copy trading from {targetAddress}?")
+            dispatcher.utter_message(text =f"What is the maximal amount of BNB you would like to pay in each copy trading from {targetAddress}?")
         return []
     
     
